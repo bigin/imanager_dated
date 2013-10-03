@@ -727,7 +727,6 @@ class ImController
     private function i18n_customfields_list_pages_json() {
         if (function_exists('find_i18n_url') && class_exists('I18nNavigationFrontend')) {
             $slug = isset($_GET['id']) ? $_GET['id'] : (isset($_GET['newid']) ? $_GET['newid'] : '');
-            var_dump($slug);
             $pos = strpos($slug, '_');
             $lang = $pos !== false ? substr($slug, $pos+1) : null;
             $structure = I18nNavigationFrontend::getPageStructure(null, false, null, $lang);
