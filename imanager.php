@@ -31,6 +31,7 @@ define('ITEMDATA', GSDATAPATH.'imanager/');
 define('ITEMUPLOADDIR', 'data/uploads/imanager/');
 define('ITEMUPLOADPATH', GSDATAPATH.'uploads/imanager/');
 define('ITEMDATAFILE', GSDATAOTHERPATH.'imanager.xml');
+define('ITEMUPLOADDATAFILE', GSDATAOTHERPATH.'imupload.xml');
 define('IM_CUSTOMFIELDS_FILE', 'im.fields.xml');
 define('IMCSSPATH', 'imanager/css/');
 
@@ -49,7 +50,7 @@ define('IMTITLE', $ititle);
 register_plugin(
   $thisfile,
   'Item Manager Extended',
-  '0.5',
+  '0.7',
   'Bigin 07.03.2013 (modified plugin of PyC)',
   'http://www.ehret-studio.de',
   'Full featured Item Manager',

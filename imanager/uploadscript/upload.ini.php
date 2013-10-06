@@ -13,7 +13,7 @@ $par_systeminfo = array(
     /* Enter your language here. Default: english. 
     (Check your 'lang' directory for language files) */
     'language'          => 'english',
-    // Template directory name (Default: tpl)
+    // Template directory name (default: tpl)
     'templatedir'       => 'tpl',
     // Classes directory name (default: model)
     'classesdir'        => 'model',
@@ -77,10 +77,10 @@ $par_template = array(
     'windowcontent'  => array(
         
         'form_action'              => htmlspecialchars($_SERVER['PHP_SELF']),
-        // CSS-class & id for the div container and form elements like inputs, etc.
+        // css class and id of the div container and form elements like inputs, etc.
         'form_cont_elements_class' => 'inputcont',
         'form_cont_elements_id'    => '',
-        // There you can set css classe and id for your image container
+        // css class and id of your image container
         'multi_data_cont_class'    => 'multicont',
         'multi_data_cont_id'       => '',
         // Name of the input type file
@@ -89,7 +89,7 @@ $par_template = array(
         parameter below in the filter section */
         'html_maxfilesize'         => '',
         'lang_info_display'        => '',
-        'lang_select_image'        => 'Click an “Image” to include in your article.',
+        'lang_select_image'        => 'Click an “image” to include in your article.',
 
     ),
 
@@ -135,6 +135,8 @@ $par_imagefilter = array(
     'max_thumb_width'        => 140,
     // Limited number of images in tmp folder for each user ID
     'images_total_count'     => 10,
+    // Einables desables auto image resizer (default value: Off) 
+    'image_resizer'          => 'On',
     // Allowed MIME-type (Currently only gif, jpg and png formats supported)
     'allowed_files'          => 'image/gif, image/jpeg, image/png',
     // Search pattern and file extension for your file names.([[+uid]]-TV inclusive) 
@@ -143,7 +145,7 @@ $par_imagefilter = array(
     'filename_reg_exp'       => '/^[a-z_]([a-z0-9_-]*[a-z0-9-])*\.[a-z]{3,4}$/i',
     /* image directory path. It can be a relative or an absolute path, sample: 
     '/var/www/hosts/myhostdir/httpdocs/upload/tmp/'
-    If you're not sure what your absolute path is, check the phpinfo() DOCUMENT_ROOT directive. 
+    If you're not sure what absolute path is, check the phpinfo() DOCUMENT_ROOT directive. 
     NOTE: you have to enter the slash '/' as the final character. */
     'tmpdir'                 => 'tmp/',
     // File name prefix, sample: usruserip_filename_datatime.jpg

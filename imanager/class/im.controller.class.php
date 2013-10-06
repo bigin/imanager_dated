@@ -89,7 +89,8 @@ class ImController
 		    // todo
 	    }
 	    elseif (isset($this->input['settings'])) 
-	    {     
+	    {    
+            $o['content'] = $this->setupdisplay();
 		    // todo tlz.bh
 	    } 
         // save item
@@ -124,8 +125,12 @@ class ImController
             $o['content'] = $this->itemregister();
 	    }
 
-        if(!isset($this->input['edit']) && !isset($this->input['category']))
+        if(!isset($this->input['edit']) 
+            && !isset($this->input['category']) 
+            && !isset($this->input['settings']))
+        {
             $o['selector'] = $this->catselector();
+        }
         $o['msg'] = $this->msg();
         return $this->output($o);
     }
@@ -197,14 +202,14 @@ class ImController
         {
             if(isset($this->input[$label]))
             {
-                $tvs[$label] = 'class = "current"';
+                $tvs[$label] = 'current';
                 $f = true;
                 break;
             }
         }
         // colorate "viev all" menu point
         if(!$f)
-            $tvs['view'] = 'class = "current"';
+            $tvs['view'] = 'current';
         $tvs['itemmanager-title'] = IMTITLE;
         // output header
         return $this->imo->output($tpl, $tvs, true, array(), true);/*}}}*/
@@ -640,7 +645,7 @@ class ImController
     }
 
 
-    function i18n_customfields_customize_ckeditor($editorvar) { // copied and modified from ckeditor_add_page_link()
+    private function i18n_customfields_customize_ckeditor($editorvar) { // copied and modified from ckeditor_add_page_link()
         $res = "
         // modify existing Link dialog
         CKEDITOR.on( 'dialogDefinition', function( ev ) {
@@ -943,6 +948,17 @@ class ImController
         }
         return $this->imo->output($tpls[0], array('value' => $o), true);
     }/*}}}*/
+
+
+    /* method to display settings menu */
+    private function  setupdisplay()
+    {
+        var_dump(ImModel::getPref());
+        return 'TEST';
+    }
+
+
+
 
     private function renametool()
     {

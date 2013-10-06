@@ -1,6 +1,7 @@
 <?php
 // Upload script v. 1.5
 // Created by Mongo Juni, 2011
+// Modified by Bigin October, 2013 
 
 // Include script settings
 require_once('upload.ini.php');

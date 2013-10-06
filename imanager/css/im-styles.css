@@ -5,6 +5,10 @@
     border-bottom: solid 1px #c8c8c8;
 }
 
+.im-tab {
+	padding: 6px 10px !important;
+} 
+
 .manager-wrapper select,
 .manager-wrapper input,
 .manager-wrapper textarea {

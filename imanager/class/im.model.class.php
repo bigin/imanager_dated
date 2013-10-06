@@ -14,6 +14,7 @@ class ImModel
     /* our static resources */
     private static $properties;
     private static $preferences;
+    private static $uploadpreferences;
     private static $input;
     /** 
      * register of: 
@@ -95,14 +96,17 @@ class ImModel
         self::$setup = false;
         global $SITEURL;
         self::$properties['paths'] = array(
-                'templatedir' => GSPLUGINPATH.'imanager/tpl/',
-                'uploaddir'   => GSDATAUPLOADPATH.'imanager',
-                'uploadpart'  => ITEMUPLOADDIR,
-                'preferfile'  => ITEMDATAFILE,
-                'siteurl'     => $SITEURL,
+                'templatedir'   => GSPLUGINPATH.'imanager/tpl/',
+                'uploaddir'     => GSDATAUPLOADPATH.'imanager',
+                'uplpreferfile' => ITEMUPLOADDATAFILE,
+                'uploadpart'    => ITEMUPLOADDIR,
+                'preferfile'    => ITEMDATAFILE,
+                'siteurl'       => $SITEURL,
         );
-      
+        // load plugin preferences 
         self::$preferences = getXML(self::$properties['paths']['preferfile']);
+        // load upload-script preferences
+        self::$uploadpreferences = getXML(self::$properties['paths']['uploadpreferfile']);
         //$this->imrep = new ImReporter(GSPLUGINPATH.'imanager/tpl/');
         $this->imcat = new ImCategory(self::$preferences);
         
@@ -152,6 +156,11 @@ class ImModel
 		if(!file_exists(self::$properties['paths']['preferfile']))
         {
 			    $this->setupconfig();
+                self::$setup = true;
+        }
+        if(!file_exists(self::$properties['paths']['uploadpreferfile']))
+        {
+                $this->setupuploadconfig();
                 self::$setup = true;
         }
 
