@@ -14,7 +14,6 @@ class ImModel
     /* our static resources */
     private static $properties;
     private static $preferences;
-    private static $uploadpreferences;
     private static $input;
     /** 
      * register of: 
@@ -98,15 +97,12 @@ class ImModel
         self::$properties['paths'] = array(
                 'templatedir'   => GSPLUGINPATH.'imanager/tpl/',
                 'uploaddir'     => GSDATAUPLOADPATH.'imanager',
-                'uplpreferfile' => ITEMUPLOADDATAFILE,
                 'uploadpart'    => ITEMUPLOADDIR,
                 'preferfile'    => ITEMDATAFILE,
                 'siteurl'       => $SITEURL,
         );
         // load plugin preferences 
         self::$preferences = getXML(self::$properties['paths']['preferfile']);
-        // load upload-script preferences
-        self::$uploadpreferences = getXML(self::$properties['paths']['uploadpreferfile']);
         //$this->imrep = new ImReporter(GSPLUGINPATH.'imanager/tpl/');
         $this->imcat = new ImCategory(self::$preferences);
         
@@ -156,11 +152,6 @@ class ImModel
 		if(!file_exists(self::$properties['paths']['preferfile']))
         {
 			    $this->setupconfig();
-                self::$setup = true;
-        }
-        if(!file_exists(self::$properties['paths']['uploadpreferfile']))
-        {
-                $this->setupuploadconfig();
                 self::$setup = true;
         }
 
@@ -886,47 +877,269 @@ class ImModel
     /* program preferences */
 	public function setupconfig()
 	{/*{{{*/
+
+        // predefine default values (create neu file)
+
+        $temppref = array();
+        $temppref['sortby']     = 'title';
+        $temppref['iperpage']   = 10;
+        $temppref['bsortby']    = 'title';
+        $temppref['biperpage']  = 30;
+        $temppref['thumbwidth'] = 200;
+        /* This property contains a relative path to the temp directory,
+        which is used to build the 'src'-attribut values. Please verify that  
+        the final slash is included */
+        $temppref['uploader']['tmpurl'] = 'tmp/';
+        /* Default inputname if “genOutput()“ is called without argument. This
+        value can be overwritten by calling the “genOutput('myCustomField')“ 
+        function with an argumet */
+        $temppref['uploader']['forminputname'] = 'myfile';
+        /* Define HTML-attributes to autoremove those from template if 
+        contents of these attributes is empty. */
+        $temppref['uploader']['sysdeltvs'] = 'class, id, name, content, xml:lang, lang';
+        // Session authentification, enter 1 to enable this feature.
+        $temppref['uploader']['sessauth']  = 0;
+        // Max. characters per name (0 to disable)
+        $temppref['uploader']['filenamelength'] = 50;
+        // Min. width in pixels (0 to disable)
+        $temppref['uploader']['minwidthmainimg'] = 0;
+        // Max width in pixels (0 to disable)
+        $temppref['uploader']['maxwidthmainimg'] = 6000;
+        // Min. height in pixels (0 to disable)
+        $temppref['uploader']['minheightmainimg'] = 0;
+        // Max. height in pixels (0 to disable)
+        $temppref['uploader']['maxheightmainimg'] = 6000;
+        // Maximum allowed image size in bytes (1Mb value expl: 1048576)
+        $temppref['uploader']['maxsizemainimg'] = 20971520;
+        // Max. thumbnail width
+        $temppref['uploader']['maxthumbwidth'] = 14;
+        // Limited number of images in tmp folder for each user ID
+        $temppref['uploader']['imagestotalcount'] = 10;
+        // Einables desables auto image resizer (default value: 0) 
+        $temppref['uploader']['imageresizer'] = 1;
+        // Allowed MIME-type (Currently only gif, jpg and png formats supported)
+        $temppref['uploader']['allowedfiles'] = 'image/gif, image/jpeg, image/png';
+        // Search pattern and file extension for your file names.([[+uid]]-TV inclusive) 
+        $temppref['uploader']['filespattern'] = '{*[[+uid]]*.gif, *[[+uid]]*.jpg, *[[+uid]]*.jpeg, *[[+uid]]*.png}';
+        // Allowed character in the filename
+        $temppref['uploader']['filenameregexp'] = '/^[a-z_]([a-z0-9_-]*[a-z0-9-])*\.[a-z]{3,4}$/i';
+        /* image directory path. It can be a relative or an absolute path, sample: 
+        '/var/www/hosts/myhostdir/httpdocs/upload/tmp/'
+        If you're not sure what absolute path is, check the phpinfo() DOCUMENT_ROOT directive. 
+        NOTE: you have to enter the slash '/' as the final character. */
+        $temppref['uploader']['tmpdir'] = 'tmp/';
+        // File name prefix, sample: usruserip_filename_datatime.jpg
+        $temppref['uploader']['prefixfilename'] = 'usr';
+        // Thumbinal name prefix looks like this: thumb-usruserip_filename_datatime.jpg 
+        $temppref['uploader']['prefixthumbfilename'] = 'thumb-usr';
+        // the tmp-File will deleted automatically after a certain period of time 
+        // you can enter 1, 2, 3, 4, ... (hour format)
+        $temppref['uploader']['hoursbeforedele']  = 2;
+
+
+
+
         $delcat = isset(self::$input['deletecategory']) ? self::$input['deletecategory'] : false;
-		//$prefer_file = getXML(ITEMDATAFILE);
-        //self::$preferences;
-		//Item Title
+		// Item Title
         $file_title = IMTITLE;
-        // sort items by  
-        $sort_by = isset(self::$input['sortby']) ? safe_slash_html_input(self::$input['sortby']) : 'title';
-        // items per page 
-        $items_per_page = isset(self::$input['itemsperpage']) ? (int) self::$input['itemsperpage'] : 10;
+        // if file already exists
+        if(file_exists(self::$properties['paths']['preferfile']))
+        {
+            $preferences = getXML(self::$properties['paths']['preferfile']);
+
+            // sort by field
+            $temppref['sortby'] = isset(self::$input['sortby']) ? 
+                    safe_slash_html_input(self::$input['sortby']) : 
+                            (isset($preferences->item->sortby) ? $preferences->item->sortby : 
+                                    $temppref['sortby']);
+
+            // items per page frontend
+            $temppref['iperpage'] = isset(self::$input['itemsperpage']) ? 
+                    (int) self::$input['itemsperpage'] : 
+                            (isset($preferences->item->itemsperpage) ? $preferences->item->itemsperpage :
+                                    $temppref['iperpage']);
+
+            // sort by backend
+            $temppref['bsortby'] = isset(self::$input['bsortby']) ? 
+                    safe_slash_html_input(self::$input['bsortby']) : 
+                            (isset($preferences->item->bsortby) ? $preferences->item->bsortby : 
+                                    $temppref['bsortby']);
+
+            // items per page backend
+            $temppref['biperpage'] = isset(self::$input['bitemsperpage']) ? 
+                    safe_slash_html_input(self::$input['bitemsperpage']) : 
+                            (isset($preferences->item->bitemsperpage) ? $preferences->item->bitemsperpage :
+                                    $temppref['biperpage']);
+
+            // thumb width backend
+            $temppref['thumbwidth'] = isset(self::$input['thumbwidth']) ? 
+                    (int) self::$input['thumbwidth'] : (isset($preferences->item->thumbwidth) ? 
+                            $preferences->item->thumbwidth : $temppref['thumbwidth']);
+            
+            // UPLOADER
+
+            // preload directory       
+            $temppref['uploader']['tmpurl'] = isset(self::$input['tmpurl']) ? 
+                    safe_slash_html_input(self::$input['tmpurl']) : 
+                            (isset($preferences->item->tmpurl) ? $preferences->item->tmpurl :
+                                    $temppref['uploader']['tmpurl']);
         
-        /* BACK-END SETTINGS */        
-        // sort items by  
-        $bsort_by = isset(self::$input['bsortby']) ? safe_slash_html_input(self::$input['bsortby']) : 'title';
-        // items per page 
-        $bitems_per_page = isset(self::$input['bitemsperpage']) ? (int) self::$input['bitemsperpage'] : 30;
-        // max thumb width
-        $thumbwidth = isset(self::$input['thumbwidth']) ? (int) self::$input['thumbwidth'] : 200;
+            // file-input name 
+            $temppref['uploader']['forminputname'] = isset(self::$input['forminputname']) ? 
+                    safe_slash_html_input(self::$input['forminputname']) : 
+                            (isset($preferences->item->forminputname) ? $preferences->item->forminputname :
+                                    $temppref['uploader']['forminputname']);
+
+            // HTML-attributes to autoremove
+            $temppref['uploader']['sysdeltvs'] = isset(self::$input['sysdeltvs']) ? 
+                    safe_slash_html_input(self::$input['sysdeltvs']) : 
+                            (isset($preferences->item->sysdeltvs) ? $preferences->item->sysdeltvs :
+                                    $temppref['uploader']['sysdeltvs']);
+
+            // Session authentification, enter 1 to enable this feature.
+            $temppref['uploader']['sessauth'] = isset(self::$input['sessauth']) ? 
+                    (int) self::$input['sessauth'] : (isset($preferences->item->sessauth) ? 
+                            $preferences->item->sessauth : $temppref['uploader']['sessauth']);
+
+            // Max. characters per name (0 to disable)
+            $temppref['uploader']['filenamelength'] = isset(self::$input['filenamelength']) ? 
+                    (int) self::$input['filenamelength'] : (isset($preferences->item->filenamelength) ? 
+                            $preferences->item->filenamelength : $temppref['uploader']['filenamelength']);
+
+            // Min. width in pixels (0 to disable)
+            $temppref['uploader']['minwidthmainimg'] = isset(self::$input['minwidthmainimg']) ? 
+                    (int) self::$input['minwidthmainimg'] : (isset($preferences->item->minwidthmainimg) ? 
+                            $preferences->item->minwidthmainimg : $temppref['uploader']['minwidthmainimg']);
+
+            // Max. width in pixels (0 to disable)
+            $temppref['uploader']['maxwidthmainimg'] = isset(self::$input['maxwidthmainimg']) ? 
+                    (int) self::$input['maxwidthmainimg'] : (isset($preferences->item->maxwidthmainimg) ? 
+                            $preferences->item->maxwidthmainimg : $temppref['uploader']['maxwidthmainimg']);
+
+             // Min. height in pixels (0 to disable)
+            $temppref['uploader']['minheightmainimg'] = isset(self::$input['minheightmainimg']) ? 
+                    (int) self::$input['minheightmainimg'] : (isset($preferences->item->minheightmainimg) ? 
+                            $preferences->item->minheightmainimg : $temppref['uploader']['minheightmainimg']);
+
+            // Max. height in pixels (0 to disable)
+            $temppref['uploader']['maxheightmainimg'] = isset(self::$input['maxheightmainimg']) ? 
+                    (int) self::$input['maxheightmainimg'] : (isset($preferences->item->maxheightmainimg) ? 
+                            $preferences->item->maxheightmainimg : $temppref['uploader']['maxheightmainimg']);
+
+            // Maximum allowed image size in bytes (1Mb value expl: 1048576)
+            $temppref['uploader']['maxsizemainimg'] = isset(self::$input['maxsizemainimg']) ? 
+                    (int) self::$input['maxsizemainimg'] : (isset($preferences->item->maxsizemainimg) ? 
+                            $preferences->item->maxsizemainimg : $temppref['uploader']['maxsizemainimg']);
+ 
+            // Max. thumbnail width
+            $temppref['uploader']['maxthumbwidth'] = isset(self::$input['maxthumbwidth']) ? 
+                    (int) self::$input['maxthumbwidth'] : (isset($preferences->item->maxthumbwidth) ? 
+                            $preferences->item->maxthumbwidth : $temppref['uploader']['maxthumbwidth']);
+
+            // Limited number of images in tmp folder for each user ID
+            $temppref['uploader']['imagestotalcount'] = isset(self::$input['imagestotalcount']) ? 
+                    (int) self::$input['imagestotalcount'] : (isset($preferences->item->imagestotalcount) ? 
+                            $preferences->item->imagestotalcount : $temppref['uploader']['imagestotalcount']);
+
+            // Einables desables auto image resizer (default value: 0) 
+            $temppref['uploader']['imageresizer'] = isset(self::$input['imageresizer']) ? 
+                    (int) self::$input['imageresizer'] : (isset($preferences->item->imageresizer) ? 
+                            $preferences->item->imageresizer : $temppref['uploader']['imageresizer']);
+
+            // Allowed MIME-type (Currently only gif, jpg and png formats supported)
+            $temppref['uploader']['allowedfiles'] = isset(self::$input['allowedfiles']) ? 
+                    safe_slash_html_input(self::$input['allowedfiles']) : 
+                            (isset($preferences->item->allowedfiles) ? $preferences->item->allowedfiles :
+                                    $temppref['uploader']['allowedfiles']);
+
+
+            // Search pattern and file extension for your file names.([[+uid]]-TV inclusive) 
+            $temppref['uploader']['filespattern'] = isset(self::$input['filespattern']) ? 
+                    safe_slash_html_input(self::$input['filespattern']) : 
+                            (isset($preferences->item->filespattern) ? $preferences->item->filespattern :
+                                    $temppref['uploader']['filespattern']);
+
+            // Allowed character in the filename
+            $temppref['uploader']['filenameregexp'] = isset(self::$input['filenameregexp']) ? 
+                    safe_slash_html_input(self::$input['filenameregexp']) : 
+                            (isset($preferences->item->filenameregexp) ? $preferences->item->filenameregexp :
+                                    $temppref['uploader']['filenameregexp']);
+
+            // temp directory
+            $temppref['uploader']['tmpdir'] = isset(self::$input['tmpdir']) ? 
+                    safe_slash_html_input(self::$input['tmpdir']) : 
+                            (isset($preferences->item->tmpdir) ? $preferences->item->tmpdir :
+                                    $temppref['uploader']['tmpdir']);
+
+            // File name prefix, sample: usruserip_filename_datatime.jpg
+            $temppref['uploader']['prefixfilename'] = isset(self::$input['prefixfilename']) ? 
+                    safe_slash_html_input(self::$input['prefixfilename']) : 
+                            (isset($preferences->item->prefixfilename) ? $preferences->item->prefixfilename :
+                                    $temppref['uploader']['prefixfilename']);
+
+            // Thumbinal name prefix looks like this: thumb-usruserip_filename_datatime.jpg 
+            $temppref['uploader']['prefixthumbfilename'] = isset(self::$input['prefixthumbfilename']) ? 
+                    safe_slash_html_input(self::$input['prefixthumbfilename']) : 
+                            (isset($preferences->item->prefixthumbfilename) ? $preferences->item->prefixthumbfilename :
+                                    $temppref['uploader']['prefixthumbfilename']);
+        
+            // 1, 2, 3, 4, ... (hour format)
+            $temppref['uploader']['hoursbeforedele'] = isset(self::$input['hoursbeforedele']) ? 
+                    (int) self::$input['hoursbeforedele'] : (isset($preferences->item->hoursbeforedele) ? 
+                            $preferences->item->hoursbeforedele : $temppref['uploader']['hoursbeforedele']);
+                     
+        }
+
 
 		$xml = new SimpleXMLExtended(XMLTAG.'<channel></channel>');
 		$item_xml = $xml->addChild('item');
 		//Set Title Variable And And Write To XML FIle
 		$item_xml->addChild('title', $file_title);
         //Set items per page
-        $item_xml->addChild('itemsperpage', $items_per_page);
+        $item_xml->addChild('itemsperpage', $temppref['iperpage']);
         //Set sort items by
-        $item_xml->addChild('sortby', $sort_by);
+        $item_xml->addChild('sortby', $temppref['sortby']);
         /* BACK-END */
         //Set items per page
-        $item_xml->addChild('bitemsperpage', $bitems_per_page);
+        $item_xml->addChild('bitemsperpage', $temppref['biperpage']);
         //Set max thumb width prop 
-        $item_xml->addChild('thumbwidth', $thumbwidth);
+        $item_xml->addChild('thumbwidth', $temppref['thumbwidth']);
         // set sort items by field
-        $item_xml->addChild('bsortby', $bsort_by);
+        $item_xml->addChild('bsortby', $temppref['bsortby']);
+
+        $item_xml->addChild('tmpurl', $temppref['uploader']['tmpurl']);
+        $item_xml->addChild('forminputname', $temppref['uploader']['forminputname']);
+        $item_xml->addChild('sysdeltvs', $temppref['uploader']['sysdeltvs']);
+        $item_xml->addChild('sessauth', $temppref['uploader']['sessauth']);
+        $item_xml->addChild('filenamelength', $temppref['uploader']['filenamelength']);
+        $item_xml->addChild('minwidthmainimg', $temppref['uploader']['minwidthmainimg']);
+        $item_xml->addChild('maxwidthmainimg', $temppref['uploader']['maxwidthmainimg']);
+        $item_xml->addChild('minheightmainimg', $temppref['uploader']['minheightmainimg']);
+        $item_xml->addChild('maxheightmainimg', $temppref['uploader']['maxheightmainimg']);
+        $item_xml->addChild('maxsizemainimg', $temppref['uploader']['maxsizemainimg']);
+        $item_xml->addChild('maxthumbwidth', $temppref['uploader']['maxthumbwidth']);
+        $item_xml->addChild('imagestotalcount', $temppref['uploader']['imagestotalcount']);
+        $item_xml->addChild('imageresizer', $temppref['uploader']['imageresizer']);
+        $item_xml->addChild('allowedfiles', $temppref['uploader']['allowedfiles']);
+        $item_xml->addChild('filespattern', $temppref['uploader']['filespattern']);
+        $item_xml->addChild('filenameregexp', $temppref['uploader']['filenameregexp']);
+        $item_xml->addChild('tmpdir', $temppref['uploader']['tmpdir']);
+        $item_xml->addChild('prefixfilename', $temppref['uploader']['prefixfilename']);
+        $item_xml->addChild('prefixthumbfilename', $temppref['uploader']['prefixthumbfilename']);
+        $item_xml->addChild('hoursbeforedele', $temppref['uploader']['hoursbeforedele']);
+
         $pattern = array();
 		// add/delete categories
 		$category = $xml->addChild('categories');
-		if(isset(self::$preferences->categories->category[0])) {
-			foreach(self::$preferences->categories->category as $cat) {
+
+		if(isset(self::$preferences->categories->category[0])) 
+        {
+			foreach(self::$preferences->categories->category as $cat) 
+            {
                 $pattern[] = $cat;
 				if(!isset(self::$input['deletecategory']) || 
-                   $cat != safe_slash_html_input(self::$input['deletecategory'])) {
+                   $cat != safe_slash_html_input(self::$input['deletecategory'])) 
+                {
 					$category->addChild('category', safe_slash_html_input($cat));
                 } elseif($this->items_within_cat($cat) > 0) {
                     // delete all items within category
@@ -939,10 +1152,10 @@ class ImModel
 		if(isset(self::$input['new_category']) && 
            !empty(self::$input['new_category']))
         {
-            if(!empty($pattern) && !in_array(self::$input['new_category'], $pattern))
-                $category->addChild('category', self::$input['new_category']);
+            if(!empty($pattern) && !in_array(to7bits(self::$input['new_category']), $pattern))
+                $category->addChild('category', to7bits(self::$input['new_category']));
             elseif(empty($pattern))
-                $category->addChild('category', self::$input['new_category']);
+                $category->addChild('category', to7bits(self::$input['new_category']));
             else
                 ImMsgReporter::setClause(
                     'err_catname_duplication', 

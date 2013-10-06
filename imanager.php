@@ -31,7 +31,6 @@ define('ITEMDATA', GSDATAPATH.'imanager/');
 define('ITEMUPLOADDIR', 'data/uploads/imanager/');
 define('ITEMUPLOADPATH', GSDATAPATH.'uploads/imanager/');
 define('ITEMDATAFILE', GSDATAOTHERPATH.'imanager.xml');
-define('ITEMUPLOADDATAFILE', GSDATAOTHERPATH.'imupload.xml');
 define('IM_CUSTOMFIELDS_FILE', 'im.fields.xml');
 define('IMCSSPATH', 'imanager/css/');
 
