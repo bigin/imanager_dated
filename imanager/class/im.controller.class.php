@@ -39,10 +39,10 @@ class ImController
         {
             if(ImCategory::$is_cat_exist)
                 $o['content'] = $this->itemeditor();
-	    }
+            }
         // delete item
-	    elseif (isset($this->input['delete']))
-	    {
+            elseif (isset($this->input['delete']))
+            {
             if($this->im->item_delete($this->input['delete']))
             {
                 if(ImCategory::$is_cat_exist)
@@ -50,53 +50,52 @@ class ImController
             }
         } 
         // change visibility
-	    elseif (isset($this->input['visible'])) 
-	    {
-		    if($this->im->visibility_change())
+            elseif (isset($this->input['visible'])) 
+            {
+                    if($this->im->visibility_change())
             {
                 if(ImCategory::$is_cat_exist)
                     $o['content'] = $this->itemregister();
             }
-	    }
+            }
         // change promotion 
-	    elseif (isset($this->input['promo'])) 
-	    {
-		    if($this->im->promotion_change())
+            elseif (isset($this->input['promo'])) 
+            {
+                    if($this->im->promotion_change())
             {
                 if(ImCategory::$is_cat_exist)
                     $o['content'] = $this->itemregister();
             }
-	    }
+            }
         // save category & settings
-	    elseif (isset($this->input['category_edit']))
-	    {      
-		    $this->im->setupconfig(); 
+            elseif (isset($this->input['category_edit']))
+            {      
+                    $this->im->setupconfig(); 
             $o['content'] = $this->categoryregister(); 
-	    }
+            }
         // delete category
-	    elseif (isset($this->input['deletecategory']))
-	    {     
-		    $this->im->setupconfig();
+            elseif (isset($this->input['deletecategory']))
+            {     
+                    $this->im->setupconfig();
             $o['content'] = $this->categoryregister();  
-	    }
+            }
         // category menu
-	    elseif (isset($this->input['category'])) 
-	    {      
-            $o['content'] = $this->categoryregister();	 
-	    }
-	    elseif (isset($this->input['settings_edit']))
-	    {
-		    // todo
-	    }
-	    elseif (isset($this->input['settings'])) 
-	    {    
-            $o['content'] = $this->setupdisplay();
-		    // todo tlz.bh
-	    } 
+            elseif (isset($this->input['category'])) 
+            {      
+            $o['content'] = $this->categoryregister();         
+            }
+            elseif (isset($this->input['settings_edit']))
+            {
+                    // todo
+            }
+            elseif (isset($this->input['settings'])) 
+            {     
+                    // todo tlz.bh
+            } 
         // save item
         elseif (isset($this->input['submit'])) 
-	    {      
-		    if(!$this->im->saveitem())
+            {      
+                    if(!$this->im->saveitem())
             {
                 if(ImCategory::$is_cat_exist)
                     $o['content'] = $this->itemregister();
@@ -105,10 +104,10 @@ class ImController
                 if(ImCategory::$is_cat_exist)
                     $o['content'] = $this->itemregister();
             }
-	    }
+            }
         // configure custom fields
-	    elseif (isset($this->input['fields']))
-	    {
+            elseif (isset($this->input['fields']))
+            {
             // rename fields
             if(isset($this->input['sender']))
             {
@@ -116,21 +115,17 @@ class ImController
             }
             if(isset($this->input['save']))
                 $this->im->fieldsgenerator();
-		    $o['content'] = $this->fieldsconfigurator();
+                    $o['content'] = $this->fieldsconfigurator();
             $o['content'] .= $this->renametool();
-	    }
+            }
         // show item list menu
-	    elseif(!ImModel::$setup && !$msg)
-	    {
+            elseif(!ImModel::$setup && !$msg)
+            {
             $o['content'] = $this->itemregister();
-	    }
+            }
 
-        if(!isset($this->input['edit']) 
-            && !isset($this->input['category']) 
-            && !isset($this->input['settings']))
-        {
+        if(!isset($this->input['edit']) && !isset($this->input['category']))
             $o['selector'] = $this->catselector();
-        }
         $o['msg'] = $this->msg();
         return $this->output($o);
     }
@@ -202,14 +197,14 @@ class ImController
         {
             if(isset($this->input[$label]))
             {
-                $tvs[$label] = 'current';
+                $tvs[$label] = 'class = "current"';
                 $f = true;
                 break;
             }
         }
         // colorate "viev all" menu point
         if(!$f)
-            $tvs['view'] = 'current';
+            $tvs['view'] = 'class = "current"';
         $tvs['itemmanager-title'] = IMTITLE;
         // output header
         return $this->imo->output($tpl, $tvs, true, array(), true);/*}}}*/
@@ -314,9 +309,9 @@ class ImController
             $tmp_pic_o = $tpls[3];
             //$tmp_row_o .= $tpls[1];
             $id = $this->im->items_ordered_struct[$key]['slug'];
-		    $file = ImModel::getProp('paths', 'uploaddir').'/'.$this->im->items_ordered_struct[$key]['name'];
-		    $date = $this->im->items_ordered_struct[$key]['date'];
-		    $title = html_entity_decode($this->im->items_ordered_struct[$key]['title'], ENT_QUOTES, 'UTF-8');
+                    $file = ImModel::getProp('paths', 'uploaddir').'/'.$this->im->items_ordered_struct[$key]['name'];
+                    $date = $this->im->items_ordered_struct[$key]['date'];
+                    $title = html_entity_decode($this->im->items_ordered_struct[$key]['title'], ENT_QUOTES, 'UTF-8');
             //$cat = html_entity_decode($this->im->items_ordered_struct[$key]['category'], ENT_QUOTES, 'UTF-8');
             
             // coloring the rows
@@ -342,7 +337,7 @@ class ImController
             $cssclass = 'redoff';           
             if(!isset($this->im->items_ordered_struct[$key]['visible']) || 
                (int)$this->im->items_ordered_struct[$key]['visible'] == 1)
-		        $cssclass = 'redon';
+                        $cssclass = 'redon';
             $tmp_vic_o = $this->imo->output($tmp_vic_o, array('visible-class' => $cssclass));
             $globbuf = $this->imo->output($globbuf, array('visible-icon' => $tmp_vic_o));    
              
@@ -351,7 +346,7 @@ class ImController
             if(!isset($this->im->items_ordered_struct[$key]['promo']) || 
                (int)$this->im->items_ordered_struct[$key]['promo'] == 1)
             {
-		        $cssclass = 'redon';
+                        $cssclass = 'redon';
             }
             $tmp_pic_o = $this->imo->output($tmp_pic_o, array('promo-class' => $cssclass));
             $globbuf = $this->imo->output($globbuf, array('promo-icon' => $tmp_pic_o), true);
@@ -645,7 +640,7 @@ class ImController
     }
 
 
-    private function i18n_customfields_customize_ckeditor($editorvar) { // copied and modified from ckeditor_add_page_link()
+    function i18n_customfields_customize_ckeditor($editorvar) { // copied and modified from ckeditor_add_page_link()
         $res = "
         // modify existing Link dialog
         CKEDITOR.on( 'dialogDefinition', function( ev ) {
@@ -820,18 +815,18 @@ class ImController
         // limit per page
         $limit = $this->im->pagedata['limit'];
         // adjacent
-	    $adjacents = $this->im->pagedata['adjacents'];
+            $adjacents = $this->im->pagedata['adjacents'];
         // last page
         $lastpage = $this->im->pagedata['lastpage'];
         // current
-	    $page = $this->im->pagedata['page'];
+            $page = $this->im->pagedata['page'];
         // first page
         $start = $this->im->pagedata['start'];
         // next page
         $next = $this->im->pagedata['next'];
         // preview page
-	    $prev = $this->im->pagedata['prev'];
-	    //$next = $page + 1;
+            $prev = $this->im->pagedata['prev'];
+            //$next = $page + 1;
         $lpm1 = $this->im->pagedata['lpm1'];
         // url 
         $pageurl = $this->im->pagedata['pageurl'];
@@ -843,11 +838,11 @@ class ImController
             if($page > 1)
                 $o .= $this->imo->output($tpls[1], array('link-href' => $pageurl.$prev), true); 
             else
-                $o .= $this->imo->output($tpls[4], array(), true);	
+                $o .= $this->imo->output($tpls[4], array(), true);        
             
-            //pages	
-            if($lastpage < 7 + ($adjacents * 2))	//not enough pages to bother breaking it up
-            {	
+            //pages        
+            if($lastpage < 7 + ($adjacents * 2))        //not enough pages to bother breaking it up
+            {        
                 for($counter = 1; $counter <= $lastpage; $counter++)
                 {
                     if($counter == $page)
@@ -864,7 +859,7 @@ class ImController
             } elseif($lastpage > 5 + ($adjacents * 2))
             {
                 // vclose to beginning; only hide later pages
-                if($page < 1 + ($adjacents * 2))		
+                if($page < 1 + ($adjacents * 2))                
                 {
                     for($counter = 1; $counter < 4 + ($adjacents * 2); $counter++)
                     {
@@ -948,17 +943,6 @@ class ImController
         }
         return $this->imo->output($tpls[0], array('value' => $o), true);
     }/*}}}*/
-
-
-    /* method to display settings menu */
-    private function  setupdisplay()
-    {
-        var_dump(ImModel::getPref());
-        return 'TEST';
-    }
-
-
-
 
     private function renametool()
     {
