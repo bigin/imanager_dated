@@ -469,8 +469,8 @@ class ImController
                     foreach($options AS $option)
                     { 
                         $selected = '';
-                        if($option == $select)
-                            $selected = 'selected';                    
+                        if($option == stripslashes($select))
+                            $selected = 'selected="selected"';                    
                         $dropdown .= $this->imo->output($tpls[7], array('selected' => $selected, 'value' => $option,
                         'value-text' => $option)); 
                     }
