@@ -1,0 +1,847 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"op",
+				"option	Tag"
+			],
+			[
+				"p",
+				"preflist"
+			],
+			[
+				"title",
+				"title"
+			],
+			[
+				"file_exis",
+				"err_file_exists"
+			],
+			[
+				"var",
+				"var_dump"
+			],
+			[
+				"storn",
+				"storndatum"
+			],
+			[
+				"verlda",
+				"verldatum"
+			],
+			[
+				"nachn",
+				"nachnsofdatum"
+			],
+			[
+				"Nachname",
+				"Nachnamedatum"
+			],
+			[
+				"true",
+				"true"
+			],
+			[
+				"verlu",
+				"Verlustdatum"
+			],
+			[
+				"art",
+				"artart_selector"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "imanager.php",
+			"settings":
+			{
+				"buffer_size": 2865,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "imanager/docs/logfile.txt",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "imanager/class/im.category.class.php",
+			"settings":
+			{
+				"buffer_size": 1851,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "imanager/class/im.controller.class.php",
+			"settings":
+			{
+				"buffer_size": 40922,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "imanager/tpl/settings.admin.tpl",
+			"settings":
+			{
+				"buffer_size": 3234,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "imanager/class/ajax/im.responder.php",
+			"settings":
+			{
+				"buffer_size": 915,
+				"line_ending": "Unix",
+				"name": "<?php"
+			}
+		},
+		{
+			"file": "imanager/tpl/settings.admin.cat.selector.tpl",
+			"settings":
+			{
+				"buffer_size": 97,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "imanager/class/im.fields.configurator.class.php",
+			"settings":
+			{
+				"buffer_size": 2799,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "imanager/class/im.model.class.php",
+			"settings":
+			{
+				"buffer_size": 51633,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "imanager/class/im.msg.reporter.class.php",
+			"settings":
+			{
+				"buffer_size": 918,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "imanager/class/im.output.class.php",
+			"settings":
+			{
+				"buffer_size": 3114,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "imanager/uploadscript/upload.php",
+			"settings":
+			{
+				"buffer_size": 1372,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/var/www/projects/php/edasada/data/other/imanager.xml",
+			"settings":
+			{
+				"buffer_size": 1227,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "imanager/uploadscript/upload.ini.php",
+			"settings":
+			{
+				"buffer_size": 6711,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/var/www/projects/php/edasada/index.php",
+		"/var/www/projects/php/edasada/gsconfig.php",
+		"/var/www/projects/php/edasada/plugins/imanager/tpl/edititem.admin.option.tpl",
+		"/var/www/projects/php/edasada/plugins/imanager/tpl/selector.admin.tpl",
+		"/var/www/projects/php/edasada/plugins/imanager/tpl/edititem.admin.tpl",
+		"/var/www/projects/php/edasada/data/other/imanager.xml",
+		"/var/www/projects/php/edasada/plugins/.htaccess",
+		"/var/www/projects/php/edasada/data/other/Ckeditor.im.fields.xml",
+		"/var/www/projects/php/edasada/plugins/imanager/tpl/configure.admin.element.tpl",
+		"/var/www/projects/php/edasada/plugins/imanager/css/im-styles.css",
+		"/var/www/projects/php/edasada/plugins/imanager/uploadscript/upload.ini.php",
+		"/var/www/projects/php/edasada/plugins/imanager/tpl/edititem.admin.editor.tpl",
+		"/var/www/projects/php/edasada/plugins/i18n_customfields.php",
+		"/var/www/projects/php/edasada/plugins/i18n_customfields/configure.php",
+		"/var/www/projects/php/edasada/plugins/i18n_customfields/edit.php",
+		"/var/www/projects/php/edasada/admin/edit.php",
+		"/var/www/projects/php/edasada/plugins/imanager/tpl/tabpanel.admin.tpl",
+		"/var/www/projects/php/formativ.net/bestofcroatia-de/fnetcontent/cObjectAdmin/cBackend/cBackendAtt.class.php",
+		"/var/www/projects/php/formativ.net/bestofcroatia-de/fnetcontent/cObjectAdmin/cBackend/cBackendAtt.view.php",
+		"/var/www/projects/php/formativ.net/bestofcroatia-de/fnetcontent/cObjectAdmin/cBackend/cBackendEinheit.class.php",
+		"/var/www/projects/php/formativ.net/bestofcroatia-de/fnetcontent/cObjectAdmin/cBackend/cBackendEinheit.view.php",
+		"/home/mongo/.config/sublime-text-3/Packages/Default/Preferences.sublime-settings"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"cat",
+			"custom_fields_file()",
+			"custom_fields",
+			"pagedata",
+			" $pagedata",
+			"pos",
+			"preferencer",
+			"settings.admin.tpl",
+			"['input_name_file']",
+			"$thumbwidth",
+			"$bitems_per_page",
+			"$bsort_by",
+			"$items_per_page",
+			"$sort_by",
+			"safe_slash_html_input",
+			"setupconfig",
+			"IMTITLE",
+			"setupconfig",
+			"var_",
+			"i18n_customfields_customize_ckeditor",
+			"$editorvar",
+			"exec_action",
+			"$toolbar",
+			"GSEDITOROPTIONS",
+			"itemeditor",
+			"georg",
+			"CKEDITOR",
+			"CKEDITOR.instances",
+			"InstanceReadyEvent",
+			"customfields",
+			"output",
+			"output(",
+			"output()",
+			"fieldsgenerator",
+			"post-content",
+			"#post-content",
+			"$creDate",
+			"i18n_customfields_customize_ckeditor",
+			"$dataQueryString",
+			"bearbe",
+			"$dataQueryString",
+			"bearbe",
+			"\"bearbe",
+			"\"bearbeiten",
+			"\"ändern",
+			"$storndate_tstamp",
+			"\"verkauf",
+			"update ",
+			"update",
+			"insert",
+			"isert",
+			"$config[\"placeholder\"][\"eingdatum\"]",
+			"$config[\"placeholder\"]",
+			"$montheing",
+			"auswerten",
+			"auswert",
+			"protokol",
+			"verkaufs_protokol",
+			"get_date_selector_ext",
+			"$config[\"placeholder\"]",
+			"$template_content",
+			"$template[\"verkauf\"]",
+			"mosGetParam",
+			"update",
+			"$name",
+			"$attributes",
+			"\"bearbeiten\"",
+			"get_date_selector",
+			"substitute_marker",
+			"###",
+			"$template_content",
+			"$template[\"verkauf\"]",
+			"nachndatum",
+			"###nachndatum###",
+			"Verkaufsdatum",
+			"$mysql_query_array",
+			"verkauf",
+			"vekauf",
+			"\"vekauf\"",
+			"$verkaufs_art_array",
+			"mosGetParam",
+			"protected",
+			"mosGetParam",
+			"function mosGetParam",
+			"mosGetParam",
+			"$type_selector",
+			"$verkaufs_art_array",
+			"vkdatum",
+			"protected"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"eingdatum"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 3,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "imanager.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2865,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2553,
+								2553
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 768.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "imanager/docs/logfile.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "imanager/class/im.category.class.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1851,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1226,
+								1226
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 108.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "imanager/class/im.controller.class.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 40922,
+						"regions":
+						{
+							"bookmarks":
+							{
+								"flags": 144,
+								"icon": "bookmark",
+								"regions":
+								[
+									[
+										2980,
+										2980
+									],
+									[
+										38135,
+										38135
+									]
+								],
+								"scope": "bookmarks"
+							}
+						},
+						"selection":
+						[
+							[
+								1312,
+								1514
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 228.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "imanager/tpl/settings.admin.tpl",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3234,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2279,
+								2279
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 324.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "imanager/class/ajax/im.responder.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 915,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								67,
+								67
+							]
+						],
+						"settings":
+						{
+							"auto_name": "<?php",
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "imanager/tpl/settings.admin.cat.selector.tpl",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 97,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								42,
+								42
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "imanager/class/im.fields.configurator.class.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2799,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								139,
+								139
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 540.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "imanager/class/im.model.class.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 51633,
+						"regions":
+						{
+							"bookmarks":
+							{
+								"flags": 144,
+								"icon": "bookmark",
+								"regions":
+								[
+									[
+										30382,
+										30382
+									]
+								],
+								"scope": "bookmarks"
+							}
+						},
+						"selection":
+						[
+							[
+								8070,
+								8070
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 4156.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "imanager/class/im.msg.reporter.class.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 918,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "imanager/class/im.output.class.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3114,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								33,
+								33
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 141.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "imanager/uploadscript/upload.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1372,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								97,
+								97
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "/var/www/projects/php/edasada/data/other/imanager.xml",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1227,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								866,
+								866
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/XML/XML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "imanager/uploadscript/upload.ini.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6711,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6541,
+								6541
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 2160.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 25.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"project": "item_manager.sublime-project",
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 123.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

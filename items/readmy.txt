@@ -1,0 +1,211 @@
+Item Manager Extended - Ver. 0.5 Beta 
+
+Download From Extend
+View GitHub Repos.
+
+Item Manager Extended is an enhanced version of the original 'Items Manager' by Pyc 'http://get-simple.info/extend/plugin/items-manager/301/' 
+to manage products, services, and other related items.
+
+primary CHANGES/FEATURES:
+    Complete separation of design and logic
+    Pagination of items lists incduded
+    Back-end Management has been redesigned and updated
+    The custom fields portion of Mvlcek 'Custom Fields' plugin has been integrated into the Item Manager environment
+    Upload functionality has been changed or added
+    Some JavaScript functions has been removed temporarily
+
+
+SETUP:
+    Make sure to save an older version of Items Manager for the case that you decide to stay with the older version!
+    -> In this case, save a copy of the old version to a different directory.
+    -> Now, delete old version data to prevent collisions.  
+    Download 'Item Manager Extended' and unzip its files to the /plugins folder
+    While logged in to GS, go to Plugins and activate Item Manager
+    Join to the plugin menu at the top of the 'Item Manager' tab and go through the setup process:
+    -> It will creates some directoryes and files.
+    After set up you will be told which files have been created. In case of failure of the Setup they must be added manually to the project tree.
+
+
+CONFIGURATIONS MENU:
+    Item Manager -> CONFIGURE panel. This menu provides a number of options that you can use to customize your items structure completely.
+    Item Manager -> SETTINGS panel. There you can find all Item Manager settings.
+    Item Manager -> MANAGE CATEGORIES panel. There you can define new categories for optimising your item management. 
+    Item Manager -> ADD NEW panel. This menu enables to genetate new Items. 
+    Item Manager -> VIEW ALL panel. The menu contains all the Items that are available at the moment; a click on one opens the Edit menu. 
+
+How to use TEMPLATES:
+    The Item Manager plugin uses templates to define the Front-end & Back-end layout, therefor it is possible to manipulate the look without knowing 
+    PHP at all. Item Manager Templates are bits of static text stored in '.tpl' files, all these files are located in the 'plugins/items/templates' 
+    directory. To customize Item List page output you should to edit 'page.list.tpl' template:
+    
+    <div class="im-resultwrap" >
+        <a class="im-itempic" href="[[itemurl]]"><img alt="" class="im-pic" src="[[my-custom-field-name]]" /><span class="im-hidden"></span></a>
+    </div>
+
+    Once you've chosen the perfect output for your results, simply substitute placeholder text 'my-custom-field-name' with your own custom fields
+    names which you wish to output on the result page.
+
+    To customize Details Page output you should to edit 'page.details.tpl' and 'page.details.loop.tpl' templates. The same principle is valid also 
+    here, as described earlier with the Result Page. 
+    The 'page.details.loop.tpl' is useful if you plan to use a dynamic content on your details page. If you do not want to use dynamic content, 
+    you can simply delete '[[loop-tpl]]' placeholder inside 'page.details.tpl' file.
+
+PLUGIN OUTPUT:
+    The easiest way of geting an Item Manager output on front-end of your website is just to create two Components like the following:
+    1. im_result_page_generator
+    2. im_details_page_generator
+
+    The next step is to include these Components inside your website Template or you can embed these Components directly in your page 
+    by using 'DynPages' Plugin. The 'DynPages' plugin allows you to use a placeholder to include a component on the page like following 
+    example shows: {% im_result_page_generator %}
+
+    Sample im_result_page_generator:
+    <?php
+    $im = new DisplayItems;
+    // put your custom field members which you wish to output here
+    $register = array('my-custom-field-name', 'my-custom-field-name-2' ...);
+    $im->pagesBuilder($register);
+    $im->pagenator();
+    echo $im->outputPage;
+    echo $im->pagination;
+    ?>
+    
+    Sample im_details_page_generator:
+    <?php
+    $im = new DisplayImItems;
+    // put your custom field members which you wish to output here
+    $register = array(
+        'image-1', 'image-2', 'image-3', 'image-4', 'image-5', 'image-6', 
+        'loop-thumb-1', 'loop-thumb-2', 'loop-thumb-3', 'loop-thumb-4',
+        'loop-thumb-5', 'loop-thumb-6', 'title', 'description', ...
+    );
+    $im->detailsPageBuilder($register);
+    echo $im->outputPage;
+    ?>
+    
+    NOTE: You should add your own '$register' values based on your configured item fields and customized according to your output templates.
+
+    You then create a new page (we call it 'Item_Manager_Result_Page') containing the 'im_result_page_generator' component.
+    After that, create yet another page 'Item_Manager_Details_Page' containing the 'im_details_page_generator' and select the 'Item_Manager_Result_Page' as its 'Page Parent'.
+    
+
+Notes
+To disabled the captcha, change the $captcha variable from true to false.
+This plugin creates separate set of users managed from the ones that can access the back-end. So do not worry - users who register using this plugin will not be able to access your admin panel. The plugins that extend this one will focus on front-end integration, communication and management, so the security of the back-end will not be compromised.
+
+
+Item Manager Extended is an enhanced version of the original [url=http://get-simple.info/extend/plugin/items-manager/301/]Items Manager[/url] by Pyc to manage products, services, and other related items.
+
+[b]primary CHANGES / FEATURES:[/b]
+[list]
+[*]Complete separation of design and logic
+[*]Pagination of item lists incduded
+[*]Back-end Management has been redesigned and updated
+[*]The custom fields portion of Mvlcek [url=http://get-simple.info/extend/plugin/customfields/22/]Custom Fields[/url] plugin has been integrated into the Item Manager environment
+[*]Upload functionality has been changed or added
+[*]Some JavaScript functions removed temporarily
+[/list]
+
+[b]SETUP:[/b]
+[list=1]
+[*]Make sure to save an older version of Items Manager for the case that you decide to stay with the older version!
+-> In this case, save a copy of the old version to a different directory.
+-> Now, delete old version data to prevent collisions.
+[*]Download 'Item Manager Extended' and unzip its files to the /plugins folder
+[*]While logged in to GS, go to Plugins and activate Item Manager, join to the plugin menu at the top of the 'Item Manager' tab and go through the setup process:
+-> It will creates some directories and files.
+[*]After set up you will be told which files have been created. In case of failure of the Setup they must be added manually to the project tree.
+[/list]
+
+[b]CONFIGURATIONS MENU:[/b]
+[list]
+[*]Item Manager -> CONFIGURE panel. This menu provides a number of options that you can use to customize your items structure completely.
+[*]Item Manager -> SETTINGS panel. There you can find all Item Manager settings.
+[*]Item Manager -> MANAGE CATEGORIES panel. There you can define new categories for optimising your item management.
+[*]Item Manager -> ADD NEW panel. This menu point enables to generate new Items.
+[*]Item Manager -> VIEW ALL panel. The menu point contains all the Items that are available at the moment; a click on one opens the Edit menu.
+[/list]
+
+[b]How to use TEMPLATES:[/b]
+The Item Manager plugin uses templates to define the Front-end & Back-end layout, therefor it is possible to manipulate the look without knowing PHP at all. Item Manager Templates are bits of static text stored in '.tpl' files, all these files are located in the 'plugins/items/templates' directory. To customize Result Page output you should to edit 'page.result.tpl' template:
+   
+[code] 
+<div class="im-resultwrap" >
+    <a class="im-itempic" href="[[itemurl]]"><img alt="" class="im-pic" 
+        src="[[my-custom-field-name]]" /><span class="im-hidden"></span></a>
+</div>
+[/code]
+
+Once you've chosen the perfect output for your item results, simply substitute placeholder text 'my-custom-field-name' with your own custom fields names which you wish to output on the result page.
+
+To customize Details Page output you should to edit 'page.details.tpl' and 'page.details.loop.tpl' templates. The same principle is valid also here, as described earlier with the Result Page. 
+The 'page.details.loop.tpl' is useful if you plan to use a dynamic content on your details page. If you do not want to use dynamic content, you can simply delete '[[loop-tpl]]' placeholder inside 'page.details.tpl' file.
+
+[b]PLUGIN OUTPUT:[/b]
+The easiest way of getting an Item Manager output on front-end of your website is just to create two Components like the following:
+
+[list=1]
+[*]im_result_page_generator
+[*]im_details_page_generator
+[/list]
+The next step is to include these components inside your website template or you can embed these directly in your page by using [url=http://get-simple.info/extend/plugin/dynpages/81/]DynPages[/url] Plugin. The 'DynPages' plugin allows you to use a placeholder to include a component on the page like following example shows: {% im_result_page_generator %}
+
+Sample [i]im_result_page_generator[/i]:
+[php]
+<?php
+$im = new DisplayItems;
+// enter your item references here
+$register = array('my-custom-field-name', 'my-custom-field-name-2' ...);
+$im->pagesBuilder($register);
+$im->pagenator();
+echo $im->outputPage;
+echo $im->pagination;
+?>
+[/php]
+    
+Sample [i]im_details_page_generator[/i]:
+[php]
+<?php
+$im = new DisplayItems;
+// enter your item references here
+$register = array(
+        'image-1', 'image-2', 'image-3', 'image-4', 'image-5', 'image-6', 
+        'loop-thumb-1', 'loop-thumb-2', 'loop-thumb-3', 'loop-thumb-4',
+        'loop-thumb-5', 'loop-thumb-6', 'title', 'description', ...
+);
+$im->detailsPageBuilder($register);
+echo $im->outputPage;
+?>
+[/php]
+
+[b]NOTE:[/b] 
+You should change '$register' array values with your own references, based on your configured item fields and customized according to your output templates.
+
+
+
+
+
+
+
+
+
+
+ // Array push dynamic values
+            if(!empty($members) && is_array($members)) 
+            { 
+                foreach($members as $member)
+                {
+                    if(in_array($member, $img_fields))
+                    {   
+                        $this->items_builded[$i][$member] = $SITEURL.ITEMUPLOADDIR.basename((string)$data->{$member});    
+                    
+                    
+                    } else
+                    {
+                    
+                    //echo $data->$member.'<br />';
+                        $this->items_builded[$i][$member] = (string)$data->{$member};
+                    }    
+                    $i++;
+                }
+            }

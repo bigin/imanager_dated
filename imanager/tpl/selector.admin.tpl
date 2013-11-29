@@ -3,5 +3,8 @@
     <select name="cat" id="cat">
         [[catoptions]]
     </select>
-    <input type="submit" name="catsender" value="[[imanager/relad_page]]" class="submit" />
+    <noscript>
+  		<input type="submit" name="catsender" value="[[imanager/relad_page]]" class="submit" />
+ 	</noscript>
 </form>
+[[imajax]]

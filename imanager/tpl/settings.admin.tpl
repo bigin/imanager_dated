@@ -1,11 +1,14 @@
 <h3 class="menuglava">[[imanager/items-settings]]</h3>
+<p>[[imanager/items-settings-description]]</p>
 <form class="largeform" action="load.php?id=item_manager&settings&settings_edit" method="post" accept-charset="utf-8">
     <div class="manager-wrapper">
-	    <p><label for="manager-title">[[imanager/choose_manager_title]]</label>
-	    <input id="manager-title" type="text" class="text" name="item-title" value="[[manager-title ]]" /></p>
         <h4>[[imanager/frontend_settings]]</h4>
-		<p><label for="category-filter">[[imanager/filter_by_category]]</label>
-	    <input id="category-filter" type="checkbox" class="text" name="filter_by_id" [[category-checked]] /></p>
+		<!--<p><label for="category-filter">[[imanager/filter_by_category]]</label>
+	    <input id="category-filter" type="checkbox" class="text" name="filter_by_id" [[category-checked]] /></p>-->
+	    <p><label>Choose category</label>
+	   	<select id="cat-selector" class="im-select" name="catselector">
+	    	[[option-cat-select]]
+	    </select></p>
         <p><label for="sorted-fields">[[imanager/sorted_by_customfield]]</label>
         <select id="sorted-fields" class="im-text" name="sortby">
             [[option-tpl-page]]
@@ -26,3 +29,4 @@
         <p><span><input class="submit" type="submit" name="settings_edit" value="[[imanager/submit_settings]]" /></span></p>
     </div>
 </form>
+[[imajax-tpl]]

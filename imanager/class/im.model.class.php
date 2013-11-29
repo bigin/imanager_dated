@@ -75,11 +75,14 @@ class ImModel
             'configure.admin.linkundo.tpl'
         ),
         'renametool' => 'renametool.admin.tpl',
-
         'preferencer' => array(
-            'settings.admin.tpl', 
+            'settings.admin.tpl',
+            'settings.admin.cat.selector.tpl',
             'edititem.admin.option.tpl'
-        )
+        ),
+        'imajax' => array('imajax.admin.tpl'),
+        // content wrapper 
+        'contentwrapper' => 'content.wrapper.admin.tpl'
     );
 
     public $items_ordered_struct = array();
@@ -1129,22 +1132,23 @@ class ImModel
         $item_xml->addChild('hoursbeforedele', $temppref['uploader']['hoursbeforedele']);
 
         $pattern = array();
-		// add/delete categories
-		$category = $xml->addChild('categories');
+        // add/delete categories
+        $category = $xml->addChild('categories');
 
-		if(isset(self::$preferences->categories->category[0])) 
+        if(isset(self::$preferences->categories->category[0])) 
         {
-			foreach(self::$preferences->categories->category as $cat) 
+            foreach(self::$preferences->categories->category as $cat) 
             {
                 $pattern[] = $cat;
-				if(!isset(self::$input['deletecategory']) || 
-                   $cat != safe_slash_html_input(self::$input['deletecategory'])) 
+                if(!isset(self::$input['deletecategory']) || 
+                    $cat != safe_slash_html_input(self::$input['deletecategory'])) 
                 {
-					$category->addChild('category', safe_slash_html_input($cat));
-                } elseif($this->items_within_cat($cat) > 0) {
+                    $category->addChild('category', safe_slash_html_input($cat));
+                } elseif($this->items_within_cat($cat) > 0) 
+                {
                     // delete all items within category
                     foreach($this->item_in_cat as $id)
-                        $this->item_delete($id);
+                    $this->item_delete($id);
                 }
             }
         }

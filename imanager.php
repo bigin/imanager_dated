@@ -1,28 +1,28 @@
 <?php
 /**
-*    Plugin Name: Account Manager
-*    Description: Full Featured Account Manager.
-*    Version: 0.1 Beta
+*    Plugin Name: Item Manager
+*    Description: Full Featured Item Manager.
+*    Version: 0.8 Beta
 *    Author: Bigin 
 *    Author URI: http://ehret-studio.de
 *
-*    This file is part of Account Manager.
+*    This file is part of Item Manager.
 *
-*    Account Manager is free software: you can redistribute it and/or modify 
+*    Item Manager is free software: you can redistribute it and/or modify 
 *    it under the terms of the GNU General Public License as published by 
 *    the Free Software Foundation, either version 3 of the License, or any 
 *    later version.
 *
-*    Account Manager is distributed in the hope that it will be useful, but 
+*    Item Manager is distributed in the hope that it will be useful, but 
 *    WITHOUT ANY WARRANTY; without even the implied warranty of 
 *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU 
 *    General Public License for more details.
 *
 *    You should have received a copy of the GNU General Public License along 
-*    with Item Manager Extended.  If not, see <http://www.gnu.org/licenses/>.
+*    with Item Manager.  If not, see <http://www.gnu.org/licenses/>.
 *
 */
-
+//session_start();
 # get correct id for plugin
 $thisfile = basename(__FILE__, '.php');
 
@@ -48,16 +48,18 @@ define('IMTITLE', $ititle);
 // register plugin
 register_plugin(
   $thisfile,
-  'Item Manager Extended',
-  '0.7',
+  'Item Manager',
+  '0.8',
   'Bigin 07.03.2013 (modified plugin of PyC)',
-  'http://www.ehret-studio.de',
+  'http://ehret-studio.com',
   'Full featured Item Manager',
   'imanager',
   'imanager'
 );
 // activate actions
-add_action('nav-tab', 'createNavTab', array('imanager', $thisfile, IMTITLE.' Manager', 'view')); 
+add_action('nav-tab', 'createNavTab', array('imanager', $thisfile, IMTITLE.' Manager', 'view'));
+// GS 3.1 
+add_action('admin-pre-header','imajax_respd');
 /* include your own CSS for beautiful manager style */
 register_style('imstyle', $SITEURL.'plugins/'.$thisfile.'/css/im-styles.css', GSVERSION, 'screen');
 queue_style('imstyle', GSBOTH);
@@ -74,9 +76,26 @@ include(GSPLUGINPATH.'imanager/class/im.fields.configurator.class.php');
 include(GSPLUGINPATH.'imanager/class/im.output.class.php');
 // reporter
 include(GSPLUGINPATH.'imanager/class/im.msg.reporter.class.php');
+// constructor
+include(GSPLUGINPATH.'imanager/class/im.html.constructor.class.php');
+
+
+function imajax_respd()
+{
+	// Run task only if logged in admin
+	if(isset($_GET['cat']) && !empty($_GET['cat']))
+	{
+		$request = array_merge($_GET, $_POST);
+		$manager = new ImController($request);
+		echo $manager->displayBackEnd();
+		exit();
+	}
+}
+
 
 // back-end
-function imanager() { 
+function imanager() 
+{ 
     $request = array_merge($_GET, $_POST);
     // init
     $manager = new ImController($request);

@@ -1,0 +1,284 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"an",
+				"andern"
+			],
+			[
+				"de",
+				"debugger"
+			],
+			[
+				"ty",
+				"type_selector"
+			],
+			[
+				"t",
+				"type_selector"
+			],
+			[
+				"var",
+				"var_dump"
+			],
+			[
+				"storn",
+				"storndatum"
+			],
+			[
+				"verlda",
+				"verldatum"
+			],
+			[
+				"nachn",
+				"nachnsofdatum"
+			],
+			[
+				"Nachname",
+				"Nachnamedatum"
+			],
+			[
+				"true",
+				"true"
+			],
+			[
+				"verlu",
+				"Verlustdatum"
+			],
+			[
+				"art",
+				"artart_selector"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/var/www/projects/php/formativ.net/bestofcroatia-de/fnetcontent/cObjectAdmin/cBackend/cBackendAtt.class.php",
+		"/var/www/projects/php/formativ.net/bestofcroatia-de/fnetcontent/cObjectAdmin/cBackend/cBackendAtt.view.php",
+		"/var/www/projects/php/formativ.net/bestofcroatia-de/fnetcontent/cObjectAdmin/cBackend/cBackendEinheit.class.php",
+		"/var/www/projects/php/formativ.net/bestofcroatia-de/fnetcontent/cObjectAdmin/cBackend/cBackendEinheit.view.php",
+		"/home/mongo/.config/sublime-text-3/Packages/Default/Preferences.sublime-settings"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"TEST",
+			"\"year\"",
+			"\"day\"",
+			"\"month\"",
+			"Kein Attribut",
+			"$verkaufspreis",
+			"protokoll_verkauf",
+			"status",
+			"$status",
+			"fields_chek_ok",
+			"$vkpreis",
+			"artbezeichnung",
+			"hier",
+			"Nachname",
+			" vkart",
+			"$where_clause_date",
+			"$ueberdate_tstamp2",
+			"$ueberdate_tstamp2 ",
+			"Überweisen SOF",
+			"artart_selector",
+			"mosGetParam",
+			"option",
+			"Stomo",
+			"<td",
+			"align=\"center\"",
+			"$dataQueryString",
+			"bearbe",
+			"$dataQueryString",
+			"bearbe",
+			"\"bearbe",
+			"\"bearbeiten",
+			"\"ändern",
+			"$storndate_tstamp",
+			"\"verkauf",
+			"update ",
+			"update",
+			"insert",
+			"isert",
+			"$config[\"placeholder\"][\"eingdatum\"]",
+			"$config[\"placeholder\"]",
+			"$montheing",
+			"auswerten",
+			"auswert",
+			"protokol",
+			"verkaufs_protokol",
+			"get_date_selector_ext",
+			"$config[\"placeholder\"]",
+			"$template_content",
+			"$template[\"verkauf\"]",
+			"mosGetParam",
+			"update",
+			"$name",
+			"$attributes",
+			"\"bearbeiten\"",
+			"get_date_selector",
+			"substitute_marker",
+			"###",
+			"$template_content",
+			"$template[\"verkauf\"]",
+			"nachndatum",
+			"###nachndatum###",
+			"Verkaufsdatum",
+			"$mysql_query_array",
+			"verkauf",
+			"vekauf",
+			"\"vekauf\"",
+			"$verkaufs_art_array",
+			"mosGetParam",
+			"protected",
+			"mosGetParam",
+			"function mosGetParam",
+			"mosGetParam",
+			"$type_selector",
+			"$verkaufs_art_array",
+			"vkdatum",
+			"protected"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"$y",
+			"$d",
+			"$m",
+			"Nachnahme",
+			"eingdatum"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"project": "version.sublime-project",
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

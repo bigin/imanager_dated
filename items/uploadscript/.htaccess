@@ -1,0 +1,4 @@
+#LoadModule headers_module modules/mod_headers.so
+#ForceType application/octet-stream
+#Header set Content-Disposition attachment
+Allow from all

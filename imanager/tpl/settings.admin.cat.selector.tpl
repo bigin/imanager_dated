@@ -1,0 +1,1 @@
+<option value="[[option-value-cat-selector]]" [[selected]]>[[option-value-cat-selector]]</option>
