@@ -7,7 +7,7 @@ function prepDataFormDisplay(&$tpl, &$sys)
     // Modify our window url parameter
     $tpl['formtemplate']['upload_script_url'] = 
                 'http://'.$_SERVER['SERVER_NAME'].'/'.str_replace($_SERVER['DOCUMENT_ROOT'], '', 
-                $tpl['formtemplate']['upload_script_url']);
+                str_replace("\\","/",$tpl['formtemplate']['upload_script_url']));
     
     $arrbuff = explode(',', $sys['systvs']);
     $sys['systvs'] = array();
