@@ -664,41 +664,41 @@ class ImModel
 
         foreach($fields as $field)
         {
-            if($field['type'] == 'uploader')
-            {
-                $fieldname = 'post-'.$field['key'];
-                if(!isset(self::$input[$fieldname]))
-                    continue;
-                $imgname = basename(self::$input[$fieldname]);
-                // explode temporaire image name
-                if(strpos($imgname, '_') !== false && 
-                   dirname(self::$input[$fieldname]).'/' != ITEMUPLOADPATH)
-                {
-                    @list($id, $datetime, $stdname) = explode('_', $imgname, 3);
-                    // copy image to right directory (todo: change "nondynamic" part)
-                    $oldfile = GSPLUGINPATH.'imanager/uploadscript/tmp/'.$imgname;
-                    $newfile = ITEMUPLOADPATH.$stdname;
-                    // look for orphan files & delete them
-                    if(!file_exists($newfile) && file_exists($oldfile)) {
-                        if (!copy($oldfile, $newfile)) {
-                            ImMsgReporter::setClause('err_copy_fail', array('old_file' => $oldfile));
-                        } else {
-                            self::$input[$fieldname] = $newfile;
-                        } 
-                    } elseif(file_exists($oldfile)) {
-                        if($this->is_file_dead($field['key'], $stdname)) {
-                            if(!copy($oldfile, $newfile)) {
-                                ImMsgReporter::setClause('err_copy_fail', array('old_file' => $oldfile));
-                            } else {
-                                self::$input[$fieldname] = $newfile;
-                            }
-                        } else {
-                            ImMsgReporter::setClause('err_file_exists', array('std_name' => $stdname));
-                        }
-                    } else {
-                        ImMsgReporter::setClause('err_file_removed', array('old_file' => $oldfile));
-                    }
-                }   
+			if($field['type'] == 'uploader')
+			{
+				$fieldname = 'post-'.$field['key'];
+				if(!isset(self::$input[$fieldname]))
+					continue;
+				$imgname = basename(self::$input[$fieldname]);
+				// explode temporaire image name
+				if(strpos($imgname, '_') !== false &&
+					dirname(self::$input[$fieldname]).'/' != ITEMUPLOADPATH)
+				{
+					@list($id, $datetime, $stdname) = explode('_', $imgname, 3);
+					// copy image to right directory (todo: change "nondynamic" part)
+					$oldfile = GSPLUGINPATH.'imanager/uploadscript/tmp/'.$imgname;
+					$newfile = ITEMUPLOADPATH.$stdname;
+					// look for orphan files & delete them
+					if(!file_exists($newfile) && file_exists($oldfile)) {
+						if (!copy($oldfile, $newfile)) {
+							ImMsgReporter::setClause('err_copy_fail', array('old_file' => $oldfile));
+						} else {
+							self::$input[$fieldname] = $newfile;
+						}
+					} elseif(file_exists($oldfile)) {
+						if($this->is_file_dead($field['key'], $stdname)) {
+							if(!copy($oldfile, $newfile)) {
+								ImMsgReporter::setClause('err_copy_fail', array('old_file' => $oldfile));
+							} else {
+								self::$input[$fieldname] = '/' . ITEMUPLOADDIR . $stdname;
+							}
+						} else {
+							ImMsgReporter::setClause('err_file_exists', array('std_name' => $stdname));
+						}
+					} else {
+						ImMsgReporter::setClause('err_file_removed', array('old_file' => $oldfile));
+					}
+				}
             }
             // overwrite with old value or delete file
             $msg = ImMsgReporter::msgs();

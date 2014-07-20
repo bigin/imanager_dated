@@ -512,34 +512,34 @@ class ImController
                     try {while (ob_get_level() > 0) ob_end_flush();} catch( Exception $e ) {}
                     $uploader = $this->imo->output($buff, array('element-id' => $key));
 
-                    // thumb
-                    if(isset($this->input['edit']) && !empty($this->input['edit']) &&
-                       file_exists($select))
-                    {
-                        $imginfo = @getimagesize($select);
-                    
-                        $w = $imginfo[0];
-                        $h = $imginfo[1];
-                     
-                        $cfile = ImModel::getPref();
-                        $tw = $cfile->item->thumbwidth;
-                    
-                        if($tw >= $w && !empty($w))
-                        {
-                            $tw = $w;
-                            $th = $h;
-                        } else if(empty($w)) 
-                        {
-                            return false;
-                        } else 
-                        { 
-                            $th = intval($h * $tw / $w);
-                        }
-                        // thumb width, height, path
-                        $thumb = $this->imo->output($tpls[11], array('thumb-w' => $tw,
-                            'thumb-h' => $th, 'thumb-path' =>  ImModel::getProp('paths', 'siteurl')
-                            . ImModel::getProp('paths', 'uploadpart').basename($select)));
-                    } else 
+					// thumb
+					if(isset($this->input['edit']) && !empty($this->input['edit']) &&
+						file_exists(ITEMUPLOADPATH . basename($select)) )
+					{
+
+						$imginfo = @getimagesize(ITEMUPLOADPATH . basename($select));
+
+						$w = $imginfo[0];
+						$h = $imginfo[1];
+
+						$cfile = ImModel::getPref();
+						$tw = $cfile->item->thumbwidth;
+
+						if(!empty($w) && $tw >= $w)
+						{
+							$tw = $w;
+							$th = $h;
+						} else if(empty($w))
+						{
+							return false;
+						} else
+						{
+							$th = intval($h * $tw / $w);
+						}
+						// thumb width, height, path
+						$thumb = $this->imo->output($tpls[11], array('thumb-w' => $tw,
+							'thumb-h' => $th, 'thumb-path' => '../' . ImModel::getProp('paths', 'uploadpart').basename($select)));
+					} else
                         $thumb = '';
                         $flag = 6;
                         break;
