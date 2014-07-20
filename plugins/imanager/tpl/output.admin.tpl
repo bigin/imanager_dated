@@ -1,5 +1,0 @@
-[[head]]
-[[msg]]
-[[selector]]
-[[content]]
-
