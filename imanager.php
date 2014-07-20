@@ -1,19 +1,19 @@
 <?php
 /**
-*    Plugin Name: Account Manager
+*    Plugin Name: Item Manager Manager
 *    Description: Full Featured Account Manager.
-*    Version: 0.1 Beta
+*    Version: 0.7 Beta
 *    Author: Bigin 
-*    Author URI: http://ehret-studio.de
+*    Author URI: http://ehret-studio.com
 *
-*    This file is part of Account Manager.
+*    This file is part of Item Manager.
 *
-*    Account Manager is free software: you can redistribute it and/or modify 
+*    Item Manager is free software: you can redistribute it and/or modify
 *    it under the terms of the GNU General Public License as published by 
 *    the Free Software Foundation, either version 3 of the License, or any 
 *    later version.
 *
-*    Account Manager is distributed in the hope that it will be useful, but 
+*    Item Manager is distributed in the hope that it will be useful, but
 *    WITHOUT ANY WARRANTY; without even the implied warranty of 
 *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU 
 *    General Public License for more details.
@@ -49,9 +49,9 @@ define('IMTITLE', $ititle);
 register_plugin(
   $thisfile,
   'Item Manager Extended',
-  '0.5',
-  'Bigin 07.03.2013 (modified plugin of PyC)',
-  'http://www.ehret-studio.de',
+  '0.7',
+  'Bigin 07.03.2013',
+  'http://www.ehret-studio.com',
   'Full featured Item Manager',
   'imanager',
   'imanager'

@@ -1,4 +1,6 @@
 <?php
+include('../../../admin/inc/common.php');
+login_cookie_check();
 // Global properties
 $par_systeminfo = array(
     // Script inf

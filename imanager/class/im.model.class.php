@@ -550,6 +550,7 @@ class ImModel
         $index = $this->pagedata['start'] + $this->pagedata['limit'];
 
         // active item keys
+		$this->pagedata['itemkeys'] = array();
         while(isset($items_st[$act_row]) && $act_row < $index)
         {
             $this->pagedata['itemkeys'][] = $act_row;
