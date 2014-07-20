@@ -1,0 +1,1 @@
+<div class="im-catcont"><p class="im-leftsec">[[category]]<span class="im-itemcounter">([[count]] items)</span></p><p class="im-rightsec"><a href="load.php?id=imanager&category&deletecategory=[[category]]" onclick="return confirm('[[imanager/confirm_delete_category]]');">X</a></p></div>

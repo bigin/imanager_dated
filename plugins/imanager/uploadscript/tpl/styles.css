@@ -1,0 +1,6 @@
+body {font-family: "Helvetica Neue",Helvetica,Arial,Verdana,Geneva,sans-serif}
+p {margin: 0; padding: 0}
+a img {border: none}
+div.multicont {margin-top: 20px;}
+div.imgcont {height: 200px; float: left; margin: 10px; font-size: small; text-align: center}
+p.messagecont {font-size: small}
