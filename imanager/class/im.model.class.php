@@ -4,7 +4,7 @@
 */
 class ImModel
 {
-    private $is_admin_panel;
+    public $is_admin_panel;
     private $items_raw_struct = array();
     private $items_spec_keys = array();
     private $sort_by;
@@ -281,7 +281,7 @@ class ImModel
                     {   
                         // urls
 						$this->items_raw_struct[$i][$field] = '';
-						if(!empty(basename((string)$data->{$field})))
+						if( basename((string)$data->{$field}) )
                         	$this->items_raw_struct[$i][$field] = self::$properties['paths']['siteurl'].ITEMUPLOADDIR.basename((string)$data->{$field});
                     } else
                     {
