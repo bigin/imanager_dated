@@ -1,5 +1,4 @@
 <?php
-if(!$admin) {exit;}
 // Global properties
 $par_systeminfo = array(
     // Script inf

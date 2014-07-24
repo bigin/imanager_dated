@@ -2,6 +2,8 @@
 
 // Upload script v. 1.5
 // Created by Mongo Juni, 2011
+require_once('../../../admin/inc/common.php');
+if(!get_cookie('GS_ADMIN_USERNAME')) {die();}
 
 $spath = dirname($_SERVER['SCRIPT_FILENAME']);
 require_once('upload.ini.php');

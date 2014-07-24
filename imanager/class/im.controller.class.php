@@ -403,7 +403,6 @@ class ImController
     private function customfields($id, $tpls)
     {/*{{{*/
         // include upload Script
-		$admin = $this->im->is_admin_panel;
         include(GSPLUGINPATH.'imanager/uploadscript/upload.php');
         $fields = $this->im->fields;
         $itemdata = $this->im->itemdata;

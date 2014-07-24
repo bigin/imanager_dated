@@ -4,7 +4,6 @@
 */
 class ImModel
 {
-    public $is_admin_panel;
     private $items_raw_struct = array();
     private $items_spec_keys = array();
     private $sort_by;
@@ -87,10 +86,12 @@ class ImModel
     public $itemdata = array();
     public $fields = null;
     public static $setup;
+	public static $is_admin_panel;
 
 
 	public function __construct($input)
 	{
+
         self::$input = $input;
         self::$setup = false;
         global $SITEURL;
@@ -110,7 +111,7 @@ class ImModel
         $this->imfcon = new ImFieldsConfigurator(self::custom_fields_file(), 
                 GSBACKUPSPATH.'other/'.ImCategory::$current_category.'.'.IM_CUSTOMFIELDS_FILE);
         // check if user inside admin panel
-        $this->is_admin_panel = (!defined('IN_GS')  || 
+        self::$is_admin_panel = (!defined('IN_GS')  ||
                 strpos($_SERVER ['REQUEST_URI'],'/admin/') === false) ? false : true;
 
         // Alerts admin if items manager settings XML file directory does not exist
@@ -427,7 +428,7 @@ class ImModel
 	{/*{{{*/
         // check sort-by property front-end / back-end 
         if(is_null($this->sort_by))
-            if(!$this->is_admin_panel)
+            if(!self::$is_admin_panel)
                 $this->sort_by = !empty(self::$preferences->item->sortby) ? 
                     (string)self::$preferences->item->sortby : 'title';
             else
@@ -440,7 +441,7 @@ class ImModel
         {
             // filter by visible front-end only
             if($element['visible'] == false 
-               && (!$this->is_admin_panel))
+               && (!selef::$is_admin_panel))
                 continue;
 
             // filter items by category
@@ -526,7 +527,7 @@ class ImModel
         // the number of items per page
         $this->pagedata['limit'] = isset(self::$preferences->item->itemsperpage) 
             ? self::$preferences->item->itemsperpage : 10;
-        if($this->is_admin_panel)
+        if(self::$is_admin_panel)
             $this->pagedata['limit'] = isset(self::$preferences->item->bitemsperpage) 
                 ? self::$preferences->item->bitemsperpage : 10;
         $this->pagedata['viewpage'] = isset(self::$preferences->item->page) 
@@ -576,7 +577,7 @@ class ImModel
         // try to fix our url inside admin, remove redundant 'page' param
         // todo: search engine friendly URL 
         $this->pagedata['pageurl'] = self::$properties['paths']['siteurl'].return_page_slug().'/?page=';
-        if($this->is_admin_panel)
+        if(self::$is_admin_panel)
             if(strpos(curPageURL(),'&page=')!==false)
                 $this->pagedata['pageurl'] = reparse_url(parse_url(curPageURL()));
             else
