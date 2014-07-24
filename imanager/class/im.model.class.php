@@ -280,7 +280,9 @@ class ImModel
                             in_array($field, $this->items_spec_keys['uploader']))
                     {   
                         // urls
-                        $this->items_raw_struct[$i][$field] = self::$properties['paths']['siteurl'].ITEMUPLOADDIR.basename((string)$data->{$field});
+						$this->items_raw_struct[$i][$field] = '';
+						if(!empty(basename((string)$data->{$field})))
+                        	$this->items_raw_struct[$i][$field] = self::$properties['paths']['siteurl'].ITEMUPLOADDIR.basename((string)$data->{$field});
                     } else
                     {
                         // other properties
@@ -494,14 +496,14 @@ class ImModel
 	}/*}}}*/
 
 	
-   /* returns the item files array */
+	/* returns the item files array */
 	private function item_files()
-	{/*{{{*/
+	{
 		$items = array();
 		$items = glob(ITEMDATA.'*.xml');
 		sort($items);
 		return array_reverse($items);
-	}/*}}}*/
+	}
 
 
     /* returns the item ids array */
@@ -664,42 +666,76 @@ class ImModel
 
         foreach($fields as $field)
         {
-			if($field['type'] == 'uploader')
-			{
-				$fieldname = 'post-'.$field['key'];
-				if(!isset(self::$input[$fieldname]))
-					continue;
-				$imgname = basename(self::$input[$fieldname]);
-				// explode temporaire image name
-				if(strpos($imgname, '_') !== false &&
-					dirname(self::$input[$fieldname]).'/' != ITEMUPLOADPATH)
+            if($field['type'] == 'uploader')
+            {
+
+                $fieldname = 'post-'.$field['key'];
+                if(!isset(self::$input[$fieldname]))
+                    continue;
+                $imgname = basename(self::$input[$fieldname]);
+				// Get file (old item field value)
+				$filename = $this->get_item_data($id, $field['key'], true);
+
+				// File field isn't empty
+				if(!empty($imgname))
 				{
-					@list($id, $datetime, $stdname) = explode('_', $imgname, 3);
-					// copy image to right directory (todo: change "nondynamic" part)
-					$oldfile = GSPLUGINPATH.'imanager/uploadscript/tmp/'.$imgname;
-					$newfile = ITEMUPLOADPATH.$stdname;
-					// look for orphan files & delete them
-					if(!file_exists($newfile) && file_exists($oldfile)) {
-						if (!copy($oldfile, $newfile)) {
-							ImMsgReporter::setClause('err_copy_fail', array('old_file' => $oldfile));
-						} else {
-							self::$input[$fieldname] = $newfile;
-						}
-					} elseif(file_exists($oldfile)) {
-						if($this->is_file_dead($field['key'], $stdname)) {
-							if(!copy($oldfile, $newfile)) {
+					// explode temporaire image name. New images only (tmp directory)
+					if(strpos($imgname, '_') !== false &&
+						dirname(self::$input[$fieldname]).'/' != ITEMUPLOADPATH)
+					{
+
+						@list($id, $datetime, $stdname) = explode('_', $imgname, 3);
+						// copy image to right directory
+						$oldfile = GSPLUGINPATH.'imanager/uploadscript/tmp/'.$imgname;
+						$newfile = '/' . ITEMUPLOADDIR . $stdname;
+
+						echo ITEMUPLOADPATH . basename($newfile) . ' __ ' . $oldfile . '<br /><br />';
+
+						if(!file_exists(ITEMUPLOADPATH . basename($newfile)) && file_exists($oldfile)) {
+
+							if (!copy($oldfile, ITEMUPLOADPATH . basename($newfile))) {
 								ImMsgReporter::setClause('err_copy_fail', array('old_file' => $oldfile));
 							} else {
-								self::$input[$fieldname] = '/' . ITEMUPLOADDIR . $stdname;
+								self::$input[$fieldname] = $newfile;
+							}
+						} elseif(file_exists($oldfile)) {
+							if(!$this->is_file_in_use(ITEMUPLOADPATH . basename($newfile), $field['key'], $id)) {
+								if(!copy($oldfile, ITEMUPLOADPATH . basename($newfile))) {
+									ImMsgReporter::setClause('err_copy_fail', array('old_file' => $oldfile));
+								} else {
+									self::$input[$fieldname] = '';
+									ImMsgReporter::setClause('err_file_exists', array('std_name' => $stdname));
+								}
+							} else {
+								ImMsgReporter::setClause('err_file_exists', array('std_name' => $stdname));
 							}
 						} else {
-							ImMsgReporter::setClause('err_file_exists', array('std_name' => $stdname));
+							ImMsgReporter::setClause('err_file_removed', array('old_file' => $oldfile));
 						}
-					} else {
-						ImMsgReporter::setClause('err_file_removed', array('old_file' => $oldfile));
+					/* User entered any characters as value. Check if old file exists and is not in use */
+					} elseif(ITEMUPLOADPATH . basename($imgname)) {
+
+						if($this->is_file_in_use(ITEMUPLOADPATH . basename($filename), $field['key'], $id))
+						{
+							self::$input[$fieldname] = '';
+						} else
+						{
+							self::$input[$fieldname] = $filename;
+						}
+					}
+				// File field is empty
+				} else {
+					if($this->is_file_in_use(ITEMUPLOADPATH . basename($filename), $field['key'], $id))
+					{
+						self::$input[$fieldname] = '';
+					} else
+					{
+						unlink(ITEMUPLOADPATH . basename($filename));
+						self::$input[$fieldname] = '';
 					}
 				}
-            }
+			}
+
             // overwrite with old value or delete file
             $msg = ImMsgReporter::msgs();
             if(!empty($msg))
@@ -937,7 +973,7 @@ class ImModel
                 $category->addChild('category', self::$input['new_category']);
             else
                 ImMsgReporter::setClause(
-                    'err_catname_duplication', 
+                    'err_catname_duplication',
                     array('end_path' => ITEMDATA)
                 );
         }
@@ -985,6 +1021,29 @@ class ImModel
                 return false;
         return true;
     }/*}}}*/
+
+
+	private function is_file_in_use($filename, $fieldkey, $itemid)
+	{
+		$fields =  self::custom_fields();
+		foreach($fields as $field)
+		{
+			if($field['type'] != 'uploader')
+				continue;
+
+			$this->gen_register(array($field['key']));
+
+			foreach($this->items_ordered_struct as $item)
+			{
+				if( basename($item[$field['key']]) == basename($filename) && ($item['slug'] != $itemid ))
+				{
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
 }
 
 

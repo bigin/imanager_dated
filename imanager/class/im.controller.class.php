@@ -512,9 +512,9 @@ class ImController
                     try {while (ob_get_level() > 0) ob_end_flush();} catch( Exception $e ) {}
                     $uploader = $this->imo->output($buff, array('element-id' => $key));
 
-					// thumb
-					if(isset($this->input['edit']) && !empty($this->input['edit']) &&
-						file_exists(ITEMUPLOADPATH . basename($select)) )
+                    // thumb
+                    if(isset($this->input['edit']) && !empty($this->input['edit']) &&
+						(!empty(basename($select)) && file_exists(ITEMUPLOADPATH . basename($select))))
 					{
 
 						$imginfo = @getimagesize(ITEMUPLOADPATH . basename($select));
