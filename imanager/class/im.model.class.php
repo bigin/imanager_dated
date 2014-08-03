@@ -309,14 +309,14 @@ class ImModel
 
 
     /* gives custom fields file of current category*/
-    private static function custom_fields_file()
+    public static function custom_fields_file()
     {
         return GSDATAOTHERPATH.ImCategory::$current_category.'.'.IM_CUSTOMFIELDS_FILE;
     }
 
 
     /* gives custom fields for current category */
-    private static function custom_fields()
+    public static function custom_fields()
     {/*{{{*/
         $f = array();
 	    $file = self::custom_fields_file();
@@ -665,86 +665,67 @@ class ImModel
             return true;
         }
 
-        foreach($fields as $field)
-        {
-            if($field['type'] == 'uploader')
-            {
+		foreach($fields as $field)
+		{
+			if($field['type'] == 'uploader')
+			{
 
-                $fieldname = 'post-'.$field['key'];
-                if(!isset(self::$input[$fieldname]))
-                    continue;
-                $imgname = basename(self::$input[$fieldname]);
+				$fieldname = 'post-'.$field['key'];
+				if(!isset(self::$input[$fieldname]))
+					continue;
+				$imgname = basename(self::$input[$fieldname]);
 				// Get file (old item field value)
 				$filename = $this->get_item_data($id, $field['key'], true);
-
 				// File field isn't empty
-				if(!empty($imgname))
+				if(!empty($imgname) /*&& ( file_exists(SPLUGINPATH.'imanager/uploadscript/tmp/' . basename($imgname))
+						|| ( file_exists(ITEMUPLOADPATH . basename($imgname)) ))*/)
 				{
-					// explode temporaire image name. New images only (tmp directory)
-					if(strpos($imgname, '_') !== false &&
-						dirname(self::$input[$fieldname]).'/' != ITEMUPLOADPATH)
+					// New file, empty field or bullshit
+					if(self::$input[$fieldname] != $filename)
 					{
-
-						@list($id, $datetime, $stdname) = explode('_', $imgname, 3);
-						// copy image to right directory
-						$oldfile = GSPLUGINPATH.'imanager/uploadscript/tmp/'.$imgname;
-						$newfile = '/' . ITEMUPLOADDIR . $stdname;
-
-						echo ITEMUPLOADPATH . basename($newfile) . ' __ ' . $oldfile . '<br /><br />';
-
-						if(!file_exists(ITEMUPLOADPATH . basename($newfile)) && file_exists($oldfile)) {
-
-							if (!copy($oldfile, ITEMUPLOADPATH . basename($newfile))) {
-								ImMsgReporter::setClause('err_copy_fail', array('old_file' => $oldfile));
-							} else {
-								self::$input[$fieldname] = $newfile;
-							}
-						} elseif(file_exists($oldfile)) {
-							if(!$this->is_file_in_use(ITEMUPLOADPATH . basename($newfile), $field['key'], $id)) {
-								if(!copy($oldfile, ITEMUPLOADPATH . basename($newfile))) {
-									ImMsgReporter::setClause('err_copy_fail', array('old_file' => $oldfile));
-								} else {
-									self::$input[$fieldname] = '';
-									ImMsgReporter::setClause('err_file_exists', array('std_name' => $stdname));
-								}
-							} else {
+						// Check new file and file in use
+						if(file_exists(GSPLUGINPATH.'imanager/uploadscript/tmp/' . basename($imgname)))
+						{
+							@list($uid, $datetime, $stdname) = explode('_', $imgname, 3);
+							$newfile = '/' . ITEMUPLOADDIR . $stdname;
+							if($this->is_file_in_use(ITEMUPLOADPATH . basename($stdname), $field['key'], $id))
+							{
 								ImMsgReporter::setClause('err_file_exists', array('std_name' => $stdname));
+								self::$input[$fieldname] = $filename;
+							} else
+							{
+								if (!copy(GSPLUGINPATH.'imanager/uploadscript/tmp/' . basename($imgname), ITEMUPLOADPATH . basename($newfile))) {
+									ImMsgReporter::setClause('err_copy_fail', array('old_file' => $oldfile));
+									self::$input[$fieldname] = $filename;
+								} else
+								{
+									if(file_exists(ITEMUPLOADPATH . basename($filename)))
+										@unlink(ITEMUPLOADPATH . basename($filename));
+									self::$input[$fieldname] = $newfile;
+								}
 							}
-						} else {
-							ImMsgReporter::setClause('err_file_removed', array('old_file' => $oldfile));
 						}
-					/* User entered any characters as value. Check if old file exists and is not in use */
-					} elseif(ITEMUPLOADPATH . basename($imgname)) {
-
-						if($this->is_file_in_use(ITEMUPLOADPATH . basename($filename), $field['key'], $id))
-						{
-							self::$input[$fieldname] = '';
-						} else
-						{
-							self::$input[$fieldname] = $filename;
-						}
-					}
-				// File field is empty
-				} else {
-					if($this->is_file_in_use(ITEMUPLOADPATH . basename($filename), $field['key'], $id))
-					{
-						self::$input[$fieldname] = '';
+						// Old file
 					} else
 					{
-						unlink(ITEMUPLOADPATH . basename($filename));
-						self::$input[$fieldname] = '';
+						self::$input[$fieldname] = $filename;
 					}
+				} else
+				{
+					if(file_exists(ITEMUPLOADPATH . basename($filename)) &&
+						!$this->is_file_in_use(ITEMUPLOADPATH . basename($filename), $field['key'], $id, true))
+						@unlink(ITEMUPLOADPATH . basename($filename));
 				}
 			}
 
-            // overwrite with old value or delete file
-            $msg = ImMsgReporter::msgs();
-            if(!empty($msg))
-                if($this->get_item_data(self::$input['id'], $field['key'], true) != self::$input[$fieldname])
-                    self::$input[$fieldname] = $this->get_item_data(self::$input['id'], $field['key'], true);
-                elseif($this->get_item_data(self::$input['id'], $field['key'], true) != self::$input[$fieldname])
-                    if(file_exists($this->get_item_data(self::$input['id'], $field['key'], true)))
-                        unlink($this->get_item_data(self::$input['id'], $field['key'], true));
+			/*// overwrite with old value or delete file
+			$msg = ImMsgReporter::msgs();
+			if(!empty($msg))
+				if($this->get_item_data(self::$input['id'], $field['key'], true) != self::$input[$fieldname])
+					self::$input[$fieldname] = $this->get_item_data(self::$input['id'], $field['key'], true);
+				elseif($this->get_item_data(self::$input['id'], $field['key'], true) != self::$input[$fieldname])
+					if(file_exists($this->get_item_data(self::$input['id'], $field['key'], true)))
+						unlink($this->get_item_data(self::$input['id'], $field['key'], true));*/
         
 			if(isset(self::$input['post-'.$field['key']])) 		
 			{
@@ -1024,7 +1005,7 @@ class ImModel
     }/*}}}*/
 
 
-	private function is_file_in_use($filename, $fieldkey, $itemid)
+	private function is_file_in_use($filename, $fieldkey, $itemid, $itemself = false)
 	{
 		$fields =  self::custom_fields();
 		foreach($fields as $field)
@@ -1036,9 +1017,13 @@ class ImModel
 
 			foreach($this->items_ordered_struct as $item)
 			{
-				if( basename($item[$field['key']]) == basename($filename) && ($item['slug'] != $itemid ))
+				if( basename($item[$field['key']]) == basename($filename) && ($item['slug'] != $itemid) && !$itemself )
 				{
 					return true;
+				} elseif(basename($item[$field['key']]) == basename($filename) && $itemself)
+				{
+					if(($item['slug'] != $itemid) || (($item['slug'] == $itemid) && $field['key'] != $fieldkey))
+						return true;
 				}
 			}
 		}
